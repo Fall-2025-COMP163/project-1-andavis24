@@ -90,6 +90,12 @@ def save_character(character, filename):
     if filename == "" or filename is None:
         print("Invalid file name.")
         return False
+    
+    # check if the directory exist
+    directory = os.path.dirname(filename)
+    if directory and not os.path.exists(directory):
+        print("Error: Directory does not exist.")
+        return False
 
     # write all character info to the file
     with open(filename, "w") as file:
