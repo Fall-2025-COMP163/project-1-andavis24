@@ -2,6 +2,7 @@
 
 **Name:** Ajani Davis  
 **Date:** October 27, 2025
+
 **AI Usage:** Used to write README.md and for debugging
 
 ## Overview
