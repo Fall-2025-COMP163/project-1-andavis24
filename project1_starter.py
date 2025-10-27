@@ -2,6 +2,7 @@
 COMP 163 - Project 1: Character Creator & Saving/Loading
 Name: Ajani Davis
 Date: [10-27-25]
+AI: Used AI to create the readme.md and help with debugging
 """
 
 import os  
