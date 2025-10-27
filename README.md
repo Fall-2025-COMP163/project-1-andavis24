@@ -1,145 +1,77 @@
-# COMP 163 - Project 1: Character Creator & Saving/Loading
+# COMP 163: Project 1 – Character Creator & Chronicles
 
 **Name:** Ajani Davis  
-**Date:** October 27, 2025
+**Date:** October 27, 2025  
+**AI Usage:** Used AI to create this README.md and assist with debugging  
+**Development Workflow:** Build → Test → Interview  
+**Critical Constraint:** Only concepts covered through the Files chapter were used.  
+(No classes, try/except, or advanced modules beyond `os`.)
 
-**AI Usage:** Used to write README.md and for debugging
+---
 
-## Overview
+## 🧩 Game Concept
 
-This project is a character creation and management system for a role-playing game (RPG). It allows users to create characters with different classes, save them to files, load them back, and level them up with dynamically calculated stats.
+The **Character Creator & Chronicles** project simulates the foundation of a role-playing game (RPG) where players can design unique heroes, save and load their progress, and experience progression through stat growth.  
 
-## Features
+Each hero begins their journey as one of four iconic classes — **Warrior, Mage, Rogue, or Cleric** — each equipped with unique stats, equipment, and a personalized backstory that sets the tone for their adventure.
 
-- **Character Creation**: Create characters with four different classes
-- **Stat Calculation**: Automatic stat generation based on class and level
-- **Save/Load System**: Save characters to text files and load them back
-- **Level Up System**: Increase character levels with automatic stat updates
-- **Character Display**: View formatted character information
+---
 
-## Character Classes
+## ⚙️ Core Features (Base Requirements)
 
-The system supports four character classes, each with unique stats and equipment:
+### 1. Character Creation
+- Builds a new character with class, stats, level, gold, and equipment.
+- Automatically assigns a default name `"Anonymous Hero"` if no name is given.
+- Validates character classes before creation.
 
-1. **Warrior**
-   - High strength and health
-   - Starting equipment: Iron Sword
-   - Backstory: "A fearless fighter who seeks glory on the battlefield."
+### 2. Stat Calculation
+- Uses class-based formulas to calculate strength, magic, and health.
+- Each class has its own growth rate and specialization.
 
-2. **Mage**
-   - High magic power
-   - Starting equipment: Wooden Staff
-   - Backstory: "A scholar of the arcane, mastering the mysteries of magic."
+### 3. Save Character
+- Saves all character data to a formatted text file for reloading later.
+- Validates directory paths before saving and prevents invalid writes.
 
-3. **Rogue**
-   - Balanced strength and magic
-   - Starting equipment: Dagger
-   - Backstory: "A quick and clever trickster who trusts no one but themselves."
+### 4. Load Character
+- Loads data from a text file and rebuilds the character dictionary.
+- Handles missing files gracefully.
 
-4. **Cleric**
-   - High health and magic
-   - Starting equipment: Healing Staff
-   - Backstory: "A devoted healer who travels to bring peace and balance."
+### 5. Level-Up System
+- Increases character level by 1.
+- Recalculates stats dynamically according to class and level progression.
 
-## Functions
+### 6. Character Display
+- Prints a formatted character sheet showing all information clearly.
 
-### `create_character(name, character_class)`
-Creates a new character with the specified name and class.
+---
 
-**Parameters:**
-- `name` (str): Character's name (defaults to "Anonymous Hero" if empty)
-- `character_class` (str): Must be one of: "Warrior", "Mage", "Rogue", "Cleric"
+## 🧙 Character Classes
 
-**Returns:**
-- Dictionary containing character data, or `None` if invalid class
+| Class | Focus | Starting Equipment | Backstory |
+|--------|--------|--------------------|------------|
+| **Warrior** | High strength and health | Iron Sword | "A fearless fighter who seeks glory on the battlefield." |
+| **Mage** | High magic and intelligence | Wooden Staff | "A scholar of the arcane, mastering the mysteries of magic." |
+| **Rogue** | Balanced agility and speed | Dagger | "A quick and clever trickster who trusts no one but themselves." |
+| **Cleric** | High health and healing ability | Healing Staff | "A devoted healer who travels to bring peace and balance." |
 
-**Example:**
-```python
-char = create_character("TestHero", "Warrior")
-```
+---
 
-### `calculate_stats(character_class, level)`
-Calculates strength, magic, and health based on class and level.
+## 🧮 Stat Formulas (Design Choice)
 
-**Parameters:**
-- `character_class` (str): The character's class
-- `level` (int): The character's current level
+| Class | Strength Formula | Magic Formula | Health Formula |
+|--------|------------------|----------------|----------------|
+| Warrior | `10 + (level * 3)` | `2 + (level)` | `100 + (level * 5)` |
+| Mage | `3 + (level)` | `12 + (level * 4)` | `70 + (level * 3)` |
+| Rogue | `7 + (level * 2)` | `6 + (level * 2)` | `80 + (level * 3)` |
+| Cleric | `6 + (level * 2)` | `10 + (level * 3)` | `90 + (level * 4)` |
 
-**Returns:**
-- Tuple of (strength, magic, health)
+These formulas ensure each class has a unique progression path that aligns with their strengths.
 
-### `save_character(character, filename)`
-Saves a character to a text file.
+---
 
-**Parameters:**
-- `character` (dict): Character dictionary to save
-- `filename` (str): Path to save file
+## 💾 File Format (Required by Tests)
 
-**Returns:**
-- `True` if successful, `False` if failed
-
-**Example:**
-```python
-save_character(char, "my_character.txt")
-```
-
-### `load_character(filename)`
-Loads a character from a text file.
-
-**Parameters:**
-- `filename` (str): Path to character file
-
-**Returns:**
-- Character dictionary, or `None` if file not found
-
-**Example:**
-```python
-char = load_character("my_character.txt")
-```
-
-### `display_character(character)`
-Prints formatted character information to the console.
-
-**Parameters:**
-- `character` (dict): Character dictionary to display
-
-**Example:**
-```python
-display_character(char)
-```
-
-### `level_up(character)`
-Increases character level by 1 and recalculates stats.
-
-**Parameters:**
-- `character` (dict): Character dictionary to level up (modified in place)
-
-**Example:**
-```python
-level_up(char)
-```
-
-## Character Data Structure
-
-Characters are stored as dictionaries with the following keys:
-```python
-{
-    "name": str,          # Character's name
-    "class": str,         # Character's class
-    "strength": int,      # Strength stat
-    "magic": int,         # Magic stat
-    "health": int,        # Health points
-    "level": int,         # Current level
-    "gold": int,          # Gold amount (starts at 100)
-    "equipment": str,     # Equipped item
-    "backstory": str      # Character's backstory
-}
-```
-
-## File Format
-
-Characters are saved in a human-readable text format:
-```
+Characters are saved in the following exact format:
 Character Name: TestHero
 Class: Warrior
 Level: 1
@@ -149,70 +81,61 @@ Health: 105
 Gold: 100
 Equipment: Iron Sword
 Backstory: A fearless fighter who seeks glory on the battlefield.
-```
 
-## Usage Example
-```python
-# Create a new character
-hero = create_character("Aragorn", "Warrior")
 
-# Display the character
-display_character(hero)
+## 📜 Error Handling
 
-# Level up the character
-level_up(hero)
+| Error Type | Behavior |
+|-------------|-----------|
+| Invalid Class | Returns `None` |
+| Empty/None Filename | Prints “Invalid file name.” and returns `False` |
+| Missing Directory | Prints “Error: Directory does not exist.” and returns `False` |
+| Missing File on Load | Prints “File not found.” and returns `None` |
+| Empty Name | Automatically assigns `"Anonymous Hero"` |
 
-# Save the character
-save_character(hero, "aragorn.txt")
+---
 
-# Load the character later
-loaded_hero = load_character("aragorn.txt")
-display_character(loaded_hero)
-```
+## 🧠 Bonus Creative Features (Implemented)
 
-## Running the Program
+| Bonus Feature | Description | Bonus Points |
+|----------------|--------------|--------------|
+| **Character Backstory System** | Each class has a unique narrative backstory automatically assigned during creation. | ✅ +2 pts |
+| **Starting Equipment System** | Each class begins with specialized starting gear (e.g., Iron Sword, Wooden Staff, Dagger, Healing Staff). | ✅ +2 pts |
 
-Run the main program to test character creation:
-```bash
-python project1_starter.py
-```
+**Total Bonus Implemented:** +4 points
 
-## Running Tests
+---
 
-The project includes comprehensive tests. Run them with pytest:
-```bash
+## 🧪 Testing & Validation
+
+### To Run the Program
+
+python3 project1_starter.py
+To Run Automated Tests
+bash
+Copy code
 pytest tests/test_comprehensive.py
-```
+Tests verify:
 
-## Requirements
+Proper character creation and stat scaling
 
-- Python 3.x
-- `os` module (standard library)
+File saving/loading consistency
 
-## Error Handling
+Level-up stat changes
 
-The system handles several error cases:
-- Empty or `None` character names (defaults to "Anonymous Hero")
-- Invalid character classes (returns `None`)
-- Invalid or empty filenames (returns `False`)
-- Non-existent directories when saving (returns `False`)
-- Missing files when loading (returns `None`)
+Proper formatting and output
 
-## Project Structure
-```
+Directory validation and missing file handling
+
+📁 Project Structure
+bash
+Copy code
 project-1-andavis24/
 │
-├── project1_starter.py      # Main project file
+├── project1_starter.py          # Main project implementation
 ├── tests/
-│   └── test_comprehensive.py  # Test suite
-└── README.md                 # This file
-```
-
-## Author Notes
-
-This project demonstrates fundamental programming concepts including:
-- Function design and implementation
-- File I/O operations
-- Data structures (dictionaries)
-- Error handling
-- Code organization and documentation
+│   └── test_comprehensive.py    # Provided test suite
+└── README.md                    # Project documentation
+💬 AI Usage Statement
+AI assistance was used to draft this README.md and to assist with debugging issues related to file saving and validation.
+All logic, formulas, and implementations were created, tested, and understood independently.
