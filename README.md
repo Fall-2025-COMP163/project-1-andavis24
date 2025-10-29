@@ -99,10 +99,9 @@ Backstory: A fearless fighter who seeks glory on the battlefield.
 
 | Bonus Feature | Description | Bonus Points |
 |----------------|--------------|--------------|
-| **Character Backstory System** | Each class has a unique narrative backstory automatically assigned during creation. |  |
-| **Starting Equipment System** | Each class begins with specialized starting gear (e.g., Iron Sword, Wooden Staff, Dagger, Healing Staff). |  |
+| **Character Backstory System** | Each class has a unique narrative backstory automatically assigned during creation. |
+| **Starting Equipment System** | Each class begins with specialized starting gear (e.g., Iron Sword, Wooden Staff, Dagger, Healing Staff). |
 
-**Total Bonus Implemented:** +4 points
 
 ---
 
